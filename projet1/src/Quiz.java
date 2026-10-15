@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Quiz {
 
     public static void main(String[] args) {
-        // Prédiction : le programme pose les 5 questions une par une, redemande si
+        // Prédiction : le programme pose les 6 questions une par une, redemande si
         // je ne tape rien, dit "Bonne réponse" ou donne la correction, puis affiche
-        // mon score sur 5 avec un message qui dépend du résultat.
+        // mon score sur 6 avec un message qui dépend du résultat.
         Question[] questions = {
                 new Question("Quel mot-clé permet de créer un objet en Java ?", "new"),
                 new Question("Que veut dire IA ?", "intelligence artificielle"),
