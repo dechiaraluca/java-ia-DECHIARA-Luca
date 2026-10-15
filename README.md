@@ -94,8 +94,11 @@ bin/
 ### 🔍 Points de contrôle : tu dois savoir répondre
 
 - Quelle est la différence entre ta classe `Question` et un objet `Question` ?
+  - **Réponse :** la classe `Question` est le plan (le moule) : elle décrit qu'une question a un énoncé, une réponse et un thème. Un objet est une question concrète fabriquée avec `new Question(...)`, avec ses propres valeurs. Il n'y a qu'une classe, mais le tableau contient plusieurs objets.
 - Pourquoi utiliser `equalsIgnoreCase()` plutôt que `==` pour comparer deux textes ?
+  - **Réponse :** `==` vérifie si deux variables désignent le même objet en mémoire, pas si les textes sont identiques : deux `String` avec le même contenu peuvent donner `false`. `equals()` compare le contenu, et `equalsIgnoreCase()` le compare en ignorant les majuscules (`"STRING"` et `"String"` sont acceptés).
 - Que se passe-t-il si ta boucle va jusqu'à l'indice 5 dans un tableau de 5 questions ?
+  - **Réponse :** les indices d'un tableau de 5 cases vont de 0 à 4. La case 5 n'existe pas, donc le programme plante avec une `ArrayIndexOutOfBoundsException`. C'est pour ça que la boucle utilise `i < questions.length` (et pas `<=`).
 
 ### ✋ Défi sans IA (5 min)
 
@@ -131,15 +134,19 @@ Une application console de type to-do list. Quand on la ferme puis qu'on la rela
 
 - [x] Demande à l'IA de t'expliquer **comment séparer la logique et l'affichage**, et pourquoi, avant de coder
 - [x] Avant d'écrire la sauvegarde, fais-toi expliquer `try-with-resources`, `BufferedReader` et `BufferedWriter`
-- [ ] **Chasse au bug** : demande à l'IA de te donner une version de ta sauvegarde/chargement avec **un bug caché**, puis trouve-le sans qu'elle te le dise
-- [ ] **Relecture critique** : demande-lui quels cas limites tu as oubliés (titre vide, fichier vide, tâche avec une virgule dans le titre…) et corrige-en au moins un
+- [x] **Chasse au bug** : demande à l'IA de te donner une version de ta sauvegarde/chargement avec **un bug caché**, puis trouve-le sans qu'elle te le dise
+- [x] **Relecture critique** : demande-lui quels cas limites tu as oubliés (titre vide, fichier vide, tâche avec une virgule dans le titre…) et corrige-en au moins un
 
 ### 🔍 Points de contrôle : tu dois savoir répondre
 
 - Pourquoi `GestionnaireTaches` ne doit-elle contenir aucun `System.out` ?
+  - **Réponse :** pour séparer la logique de l'affichage. Le gestionnaire renvoie des résultats (`true`/`false`, un nombre) ou lance une exception, et c'est `Main` qui décide quoi afficher. On peut ainsi changer d'interface (graphique, web) sans toucher à la logique, et la tester plus facilement.
 - Que se passe-t-il au lancement si le fichier de sauvegarde n'existe pas ? Où le gères-tu ?
+  - **Réponse :** rien de grave : la liste reste vide et le programme démarre normalement. C'est géré au début de `charger()` dans `GestionnaireTaches` : `Files.exists(...)` vérifie le fichier et, s'il n'existe pas, la méthode renvoie `0` sans essayer de le lire. Il sera créé à la première sauvegarde.
 - Que fait `try-with-resources` que ne fait pas un simple `try` ?
+  - **Réponse :** il ferme automatiquement le `BufferedReader` / `BufferedWriter` déclaré entre parenthèses à la fin du bloc, même si une exception se produit. Avec un simple `try`, il faudrait appeler `close()` soi-même dans un `finally`, et un oubli peut laisser le fichier ouvert ou à moitié écrit.
 - Pourquoi une `ArrayList` plutôt qu'un tableau simple ici ?
+  - **Réponse :** un tableau a une taille fixe décidée à sa création, alors que le nombre de tâches change sans arrêt. L'`ArrayList` grandit avec `add()` et rétrécit avec `remove()` / `removeIf()` en décalant les éléments toute seule.
 
 ### ✋ Défi sans IA (10 min)
 
