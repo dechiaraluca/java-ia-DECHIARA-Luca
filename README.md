@@ -70,13 +70,13 @@ bin/
 
 ### ⭐ Socle
 
-- [ ] Une classe `Question` avec un énoncé et la réponse attendue
-- [ ] Un tableau d'au moins **5 questions** sur le thème de ton choix
-- [ ] Le programme pose les questions une par une et lit la réponse au clavier (`Scanner`)
-- [ ] La comparaison tolère les espaces en trop et les majuscules (`trim()`, `equalsIgnoreCase()`)
-- [ ] Score final affiché, avec un message différent selon le résultat (au moins 3 paliers)
-- [ ] Une saisie vide ne fait pas planter le programme
-- [ ] Conventions du cours respectées : classes en majuscule, méthodes en minuscule
+- [x] Une classe `Question` avec un énoncé et la réponse attendue
+- [x] Un tableau d'au moins **5 questions** sur le thème de ton choix
+- [x] Le programme pose les questions une par une et lit la réponse au clavier (`Scanner`)
+- [x] La comparaison tolère les espaces en trop et les majuscules (`trim()`, `equalsIgnoreCase()`)
+- [x] Score final affiché, avec un message différent selon le résultat (au moins 3 paliers)
+- [x] Une saisie vide ne fait pas planter le programme
+- [x] Conventions du cours respectées : classes en majuscule, méthodes en minuscule
 
 ### 🚀 Extensions
 
@@ -87,7 +87,7 @@ bin/
 
 ### 🤖 Avec l'IA
 
-- [ ] Fais proposer par l'IA les classes à créer **avant** de coder (temps 1)
+- [x] Fais proposer par l'IA les classes à créer **avant** de coder (temps 1)
 - [ ] Fais générer tes 5 questions par l'IA, puis **vérifie toi-même** la réponse d'au moins une
 - [ ] Demande-lui d'expliquer `Scanner`, `trim()` et `equalsIgnoreCase()` avec un exemple chacun
 
