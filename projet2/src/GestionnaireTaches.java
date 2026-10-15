@@ -5,10 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 // Toute la logique, aucun affichage : c'est Main qui parle à l'utilisateur
 public class GestionnaireTaches {
+
+    // Format AAAA-MM-JJ : 4 chiffres, tiret, 2 chiffres, tiret, 2 chiffres
+    private static final String REGEX_DATE = "\\d{4}-\\d{2}-\\d{2}";
 
     private ArrayList<Tache> taches = new ArrayList<>();
 
@@ -16,13 +22,28 @@ public class GestionnaireTaches {
         return taches;
     }
 
-    // Renvoie false si le titre est vide
-    public boolean ajouter(String titre, Priorite priorite) {
+    // dateTexte peut être vide : la tâche n'a alors pas d'échéance
+    public void ajouter(String titre, Priorite priorite, String dateTexte) throws TacheInvalideException {
         if (titre == null || titre.trim().isEmpty()) {
-            return false;
+            throw new TacheInvalideException("Le titre ne peut pas être vide.");
         }
-        taches.add(new Tache(titre.trim(), priorite, false));
-        return true;
+        LocalDate echeance = null;
+        if (dateTexte != null && !dateTexte.trim().isEmpty()) {
+            echeance = lireDate(dateTexte.trim());
+        }
+        taches.add(new Tache(titre.trim(), priorite, false, echeance));
+    }
+
+    // La regex vérifie la forme, LocalDate.parse vérifie que la date existe (pas de 2026-13-45)
+    private LocalDate lireDate(String texte) throws TacheInvalideException {
+        if (!texte.matches(REGEX_DATE)) {
+            throw new TacheInvalideException("La date doit être au format AAAA-MM-JJ.");
+        }
+        try {
+            return LocalDate.parse(texte);
+        } catch (DateTimeParseException e) {
+            throw new TacheInvalideException("La date " + texte + " n'existe pas.");
+        }
     }
 
     // Les numéros commencent à 1 pour l'utilisateur, les indices à 0 pour l'ArrayList
@@ -46,6 +67,27 @@ public class GestionnaireTaches {
         return true;
     }
 
+    // HAUTE en premier : on inverse l'ordre de l'enum (BASSE, MOYENNE, HAUTE)
+    public void trierParPriorite() {
+        taches.sort(Comparator.comparing(Tache::getPriorite).reversed());
+    }
+
+    // Les tâches sans date passent à la fin
+    public void trierParDate() {
+        taches.sort(Comparator.comparing(Tache::getEcheance,
+                Comparator.nullsLast(Comparator.naturalOrder())));
+    }
+
+    public ArrayList<Tache> tachesEnRetard() {
+        ArrayList<Tache> enRetard = new ArrayList<>();
+        for (Tache tache : taches) {
+            if (tache.estEnRetard()) {
+                enRetard.add(tache);
+            }
+        }
+        return enRetard;
+    }
+
     public void sauvegarder(String nomFichier) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomFichier))) {
             for (Tache tache : taches) {
@@ -65,17 +107,18 @@ public class GestionnaireTaches {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomFichier))) {
             String ligne;
             while ((ligne = reader.readLine()) != null) {
-                String[] morceaux = ligne.split(";", 3);
-                if (morceaux.length != 3 || morceaux[2].trim().isEmpty()) {
+                String[] morceaux = ligne.split(";", 4);
+                if (morceaux.length != 4 || morceaux[3].trim().isEmpty()) {
                     lignesIgnorees++;
                     continue;
                 }
                 try {
                     Priorite priorite = Priorite.valueOf(morceaux[0]);
                     boolean faite = Boolean.parseBoolean(morceaux[1]);
-                    taches.add(new Tache(morceaux[2], priorite, faite));
-                } catch (IllegalArgumentException e) {
-                    lignesIgnorees++; // priorité inconnue
+                    LocalDate echeance = morceaux[2].isEmpty() ? null : lireDate(morceaux[2]);
+                    taches.add(new Tache(morceaux[3], priorite, faite, echeance));
+                } catch (IllegalArgumentException | TacheInvalideException e) {
+                    lignesIgnorees++; // priorité inconnue ou date invalide
                 }
             }
         }

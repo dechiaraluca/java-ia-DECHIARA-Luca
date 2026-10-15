@@ -46,10 +46,10 @@ Ensuite, guide-moi pas à pas et explique chaque nouveau concept.
 
 ## 🛠️ Étape 0 : Mise en place (10 min)
 
-- [ ] Dépôt GitHub créé : **`java-ia-NOM-Prenom`**
-- [ ] Trois dossiers : `projet1/`, `projet2/`, `projet3/`
-- [ ] Un fichier `NOTES.md` à la racine (voir « Rendu »)
-- [ ] Un `.gitignore` avant le premier commit :
+- [x] Dépôt GitHub créé : **`java-ia-NOM-Prenom`**
+- [x] Trois dossiers : `projet1/`, `projet2/`, `projet3/`
+- [x] Un fichier `NOTES.md` à la racine (voir « Rendu »)
+- [x] Un `.gitignore` avant le premier commit :
 
 ```
 out/
@@ -80,10 +80,10 @@ bin/
 
 ### 🚀 Extensions
 
-- [ ] Possibilité de rejouer sans relancer (`do…while`)
-- [ ] Questions dans un ordre aléatoire
-- [ ] Choix de la difficulté ou du thème au démarrage
-- [ ] Chronomètre : temps total affiché à la fin
+- [x] Possibilité de rejouer sans relancer (`do…while`)
+- [x] Questions dans un ordre aléatoire
+- [x] Choix de la difficulté ou du thème au démarrage
+- [x] Chronomètre : temps total affiché à la fin
 
 ### 🤖 Avec l'IA
 
@@ -122,10 +122,10 @@ Une application console de type to-do list. Quand on la ferme puis qu'on la rela
 
 ### 🚀 Extensions
 
-- [ ] Date d'échéance, validée avec une **regex** (`AAAA-MM-JJ`)
+- [x] Date d'échéance, validée avec une **regex** (`AAAA-MM-JJ`)
 - [x] Ligne corrompue dans le fichier : ignorée avec un avertissement
-- [ ] Une exception personnalisée (ex. `TacheInvalideException`)
-- [ ] Tri par priorité ou par date, et commande « tâches en retard »
+- [x] Une exception personnalisée (ex. `TacheInvalideException`)
+- [x] Tri par priorité ou par date, et commande « tâches en retard »
 
 ### 🤖 Avec l'IA
 

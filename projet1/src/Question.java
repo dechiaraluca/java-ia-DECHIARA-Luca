@@ -2,10 +2,12 @@ public class Question {
 
     private String enonce;
     private String reponse;
+    private String theme;
 
-    public Question(String enonce, String reponse) {
+    public Question(String enonce, String reponse, String theme) {
         this.enonce = enonce;
         this.reponse = reponse;
+        this.theme = theme;
     }
 
     public String getEnonce() {
@@ -14,6 +16,10 @@ public class Question {
 
     public String getReponse() {
         return reponse;
+    }
+
+    public String getTheme() {
+        return theme;
     }
 
     // Compare sans tenir compte des espaces autour ni des majuscules

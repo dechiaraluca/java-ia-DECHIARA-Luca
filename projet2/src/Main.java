@@ -29,7 +29,10 @@ public class Main {
             System.out.println("2. Lister");
             System.out.println("3. Marquer comme faite");
             System.out.println("4. Supprimer");
-            System.out.println("5. Quitter");
+            System.out.println("5. Trier par priorité");
+            System.out.println("6. Trier par date");
+            System.out.println("7. Tâches en retard");
+            System.out.println("8. Quitter");
             System.out.print("Ton choix : ");
             String choix = scanner.nextLine().trim();
 
@@ -48,8 +51,17 @@ public class Main {
                         System.out.println("Tâche supprimée.");
                     }
                 }
-                case "5" -> continuer = false;
-                default -> System.out.println("Choix inconnu, tape un chiffre entre 1 et 5.");
+                case "5" -> {
+                    gestionnaire.trierParPriorite();
+                    lister(gestionnaire);
+                }
+                case "6" -> {
+                    gestionnaire.trierParDate();
+                    lister(gestionnaire);
+                }
+                case "7" -> listerEnRetard(gestionnaire);
+                case "8" -> continuer = false;
+                default -> System.out.println("Choix inconnu, tape un chiffre entre 1 et 8.");
             }
         }
 
@@ -74,10 +86,25 @@ public class Main {
             default -> priorite = Priorite.MOYENNE;
         }
 
-        if (gestionnaire.ajouter(titre, priorite)) {
+        System.out.print("Échéance (AAAA-MM-JJ, ou Entrée pour aucune) : ");
+        String date = scanner.nextLine();
+
+        try {
+            gestionnaire.ajouter(titre, priorite, date);
             System.out.println("Tâche ajoutée.");
-        } else {
-            System.out.println("Le titre ne peut pas être vide.");
+        } catch (TacheInvalideException e) {
+            System.out.println("Tâche refusée : " + e.getMessage());
+        }
+    }
+
+    private static void listerEnRetard(GestionnaireTaches gestionnaire) {
+        ArrayList<Tache> enRetard = gestionnaire.tachesEnRetard();
+        if (enRetard.isEmpty()) {
+            System.out.println("Aucune tâche en retard, bravo !");
+            return;
+        }
+        for (Tache tache : enRetard) {
+            System.out.println("- " + tache);
         }
     }
 
