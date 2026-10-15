@@ -7,11 +7,12 @@ public class Quiz {
         // je ne tape rien, dit "Bonne réponse" ou donne la correction, puis affiche
         // mon score sur 5 avec un message qui dépend du résultat.
         Question[] questions = {
-            new Question("Quel mot-clé permet de créer un objet en Java ?", "new"),
-            new Question("Que veut dire IA ?", "intelligence artificielle"),
-            new Question("Quelle méthode est le point de départ d'un programme Java ?", "main"),
-            new Question("Quelle entreprise a créé ChatGPT ?", "OpenAI"),
-            new Question("Quel type Java sert à stocker du texte ?", "String")
+                new Question("Quel mot-clé permet de créer un objet en Java ?", "new"),
+                new Question("Que veut dire IA ?", "intelligence artificielle"),
+                new Question("Quelle méthode est le point de départ d'un programme Java ?", "main"),
+                new Question("Quelle entreprise a créé ChatGPT ?", "OpenAI"),
+                new Question("Quel type Java sert à stocker du texte ?", "String"),
+                new Question("Quel type Java sert à stocker des nombres entiers ?", "int")
         };
 
         Scanner scanner = new Scanner(System.in);
@@ -48,8 +49,10 @@ public class Quiz {
             System.out.println("Parfait, tu maîtrises le sujet !");
         } else if (score >= questions.length / 2.0) {
             System.out.println("Pas mal, encore un petit effort.");
-        } else {
+        } else if (score > 0) {
             System.out.println("Il faut réviser, mais ne lâche rien !");
+        } else {
+            System.out.println("Ouch, il va falloir réviser sérieusement !");
         }
 
         scanner.close();
