@@ -88,8 +88,8 @@ bin/
 ### 🤖 Avec l'IA
 
 - [x] Fais proposer par l'IA les classes à créer **avant** de coder (temps 1)
-- [ ] Fais générer tes 5 questions par l'IA, puis **vérifie toi-même** la réponse d'au moins une
-- [ ] Demande-lui d'expliquer `Scanner`, `trim()` et `equalsIgnoreCase()` avec un exemple chacun
+- [x] Fais générer tes 5 questions par l'IA, puis **vérifie toi-même** la réponse d'au moins une
+- [x] Demande-lui d'expliquer `Scanner`, `trim()` et `equalsIgnoreCase()` avec un exemple chacun
 
 ### 🔍 Points de contrôle : tu dois savoir répondre
 
@@ -111,19 +111,19 @@ Une application console de type to-do list. Quand on la ferme puis qu'on la rela
 
 ### ⭐ Socle
 
-- [ ] Une classe `Tache` : titre, priorité, état (faite ou non)
-- [ ] Un `enum Priorite` avec `BASSE`, `MOYENNE`, `HAUTE`
-- [ ] Une classe `GestionnaireTaches` qui contient une `ArrayList<Tache>` et la logique (ajouter, supprimer, marquer comme faite). **Elle ne contient aucun `System.out`.**
-- [ ] Un menu en console : ajouter, lister, marquer comme faite, supprimer, quitter
-- [ ] **Sauvegarde dans un fichier texte** en quittant, **rechargement** au démarrage
-- [ ] Premier lancement sans fichier : pas d'erreur
-- [ ] Les fichiers sont lus et écrits avec `try-with-resources` (ou `finally`) et les `IOException` sont gérées
-- [ ] Un numéro de tâche invalide (lettres, hors liste) affiche un message sans planter
+- [x] Une classe `Tache` : titre, priorité, état (faite ou non)
+- [x] Un `enum Priorite` avec `BASSE`, `MOYENNE`, `HAUTE`
+- [x] Une classe `GestionnaireTaches` qui contient une `ArrayList<Tache>` et la logique (ajouter, supprimer, marquer comme faite). **Elle ne contient aucun `System.out`.**
+- [x] Un menu en console : ajouter, lister, marquer comme faite, supprimer, quitter
+- [x] **Sauvegarde dans un fichier texte** en quittant, **rechargement** au démarrage
+- [x] Premier lancement sans fichier : pas d'erreur
+- [x] Les fichiers sont lus et écrits avec `try-with-resources` (ou `finally`) et les `IOException` sont gérées
+- [x] Un numéro de tâche invalide (lettres, hors liste) affiche un message sans planter
 
 ### 🚀 Extensions
 
 - [ ] Date d'échéance, validée avec une **regex** (`AAAA-MM-JJ`)
-- [ ] Ligne corrompue dans le fichier : ignorée avec un avertissement
+- [x] Ligne corrompue dans le fichier : ignorée avec un avertissement
 - [ ] Une exception personnalisée (ex. `TacheInvalideException`)
 - [ ] Tri par priorité ou par date, et commande « tâches en retard »
 
