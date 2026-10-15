@@ -32,7 +32,8 @@ public class Main {
             System.out.println("5. Trier par priorité");
             System.out.println("6. Trier par date");
             System.out.println("7. Tâches en retard");
-            System.out.println("8. Quitter");
+            System.out.println("8. Supprimer les tâches terminées");
+            System.out.println("9. Quitter");
             System.out.print("Ton choix : ");
             String choix = scanner.nextLine().trim();
 
@@ -60,8 +61,12 @@ public class Main {
                     lister(gestionnaire);
                 }
                 case "7" -> listerEnRetard(gestionnaire);
-                case "8" -> continuer = false;
-                default -> System.out.println("Choix inconnu, tape un chiffre entre 1 et 8.");
+                case "8" -> {
+                    int nombre = gestionnaire.supprimerTerminees();
+                    System.out.println(nombre + " tâche(s) terminée(s) supprimée(s).");
+                }
+                case "9" -> continuer = false;
+                default -> System.out.println("Choix inconnu, tape un chiffre entre 1 et 9.");
             }
         }
 
@@ -121,6 +126,11 @@ public class Main {
 
     // Renvoie le numéro saisi, ou -1 s'il est invalide (après avoir affiché pourquoi)
     private static int lireNumero(GestionnaireTaches gestionnaire, Scanner scanner) {
+        // Liste vide : inutile de demander un numéro qui sera forcément faux
+        if (gestionnaire.getTaches().isEmpty()) {
+            System.out.println("Aucune tâche pour l'instant, ajoute-en une d'abord.");
+            return -1;
+        }
         lister(gestionnaire);
         System.out.print("Numéro de la tâche : ");
         String saisie = scanner.nextLine().trim();

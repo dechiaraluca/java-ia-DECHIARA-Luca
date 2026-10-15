@@ -129,8 +129,8 @@ Une application console de type to-do list. Quand on la ferme puis qu'on la rela
 
 ### 🤖 Avec l'IA
 
-- [ ] Demande à l'IA de t'expliquer **comment séparer la logique et l'affichage**, et pourquoi, avant de coder
-- [ ] Avant d'écrire la sauvegarde, fais-toi expliquer `try-with-resources`, `BufferedReader` et `BufferedWriter`
+- [x] Demande à l'IA de t'expliquer **comment séparer la logique et l'affichage**, et pourquoi, avant de coder
+- [x] Avant d'écrire la sauvegarde, fais-toi expliquer `try-with-resources`, `BufferedReader` et `BufferedWriter`
 - [ ] **Chasse au bug** : demande à l'IA de te donner une version de ta sauvegarde/chargement avec **un bug caché**, puis trouve-le sans qu'elle te le dise
 - [ ] **Relecture critique** : demande-lui quels cas limites tu as oubliés (titre vide, fichier vide, tâche avec une virgule dans le titre…) et corrige-en au moins un
 

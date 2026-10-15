@@ -67,6 +67,13 @@ public class GestionnaireTaches {
         return true;
     }
 
+    // Renvoie le nombre de tâches supprimées
+    public int supprimerTerminees() {
+        int avant = taches.size();
+        taches.removeIf(Tache::estFaite);
+        return avant - taches.size();
+    }
+
     // HAUTE en premier : on inverse l'ordre de l'enum (BASSE, MOYENNE, HAUTE)
     public void trierParPriorite() {
         taches.sort(Comparator.comparing(Tache::getPriorite).reversed());
