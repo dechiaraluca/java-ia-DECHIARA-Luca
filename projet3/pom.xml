@@ -12,6 +12,8 @@
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Classe lancée par exec:java ; pour la fenêtre : -Dexec.mainClass=ChatFenetre -->
+    <exec.mainClass>ChatBot</exec.mainClass>
   </properties>
 
   <!-- Les bibliothèques dont le projet a besoin : Maven les télécharge tout seul -->
@@ -35,9 +37,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.5.0</version>
-        <configuration>
-          <mainClass>ChatBot</mainClass>
-        </configuration>
       </plugin>
     </plugins>
   </build>

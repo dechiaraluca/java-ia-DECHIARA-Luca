@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ChatBot {
 
-    private static final String FICHIER_SAUVEGARDE = "conversation.txt";
+    public static final String FICHIER_SAUVEGARDE = "conversation.txt";
 
     public static void main(String[] args) {
         // Prédiction : sans variable AI_API_KEY, le programme annonce le mode hors
@@ -64,8 +64,8 @@ public class ChatBot {
     }
 
     // La clé est lue dans une variable d'environnement : elle n'apparaît jamais
-    // dans le code
-    private static AiClient choisirClient() {
+    // dans le code. Méthode publique : ChatFenetre (version graphique) l'utilise aussi.
+    public static AiClient choisirClient() {
         String cle = System.getenv("AI_API_KEY");
         if (cle == null || cle.isBlank()) {
             System.out.println("Variable AI_API_KEY absente : mode hors ligne avec MockAiClient (réponses factices).");
@@ -91,14 +91,21 @@ public class ChatBot {
     }
 
     private static void sauvegarder(ArrayList<String> conversation) {
+        try {
+            ecrireConversation(conversation);
+            System.out.println("Conversation sauvegardée dans " + FICHIER_SAUVEGARDE + ".");
+        } catch (IOException e) {
+            System.out.println("Impossible de sauvegarder : " + e.getMessage());
+        }
+    }
+
+    // Sans affichage : c'est l'appelant (console ou fenêtre) qui prévient l'utilisateur
+    public static void ecrireConversation(ArrayList<String> conversation) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHIER_SAUVEGARDE))) {
             for (String ligne : conversation) {
                 writer.write(ligne);
                 writer.newLine();
             }
-            System.out.println("Conversation sauvegardée dans " + FICHIER_SAUVEGARDE + ".");
-        } catch (IOException e) {
-            System.out.println("Impossible de sauvegarder : " + e.getMessage());
         }
     }
 }
