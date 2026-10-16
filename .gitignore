@@ -7,3 +7,4 @@ bin/
 .env
 *.class
 taches.txt
+conversation.txt

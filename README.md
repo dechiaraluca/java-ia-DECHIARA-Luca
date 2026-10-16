@@ -219,35 +219,39 @@ Pas à l'aise avec Maven ? Demande à l'IA de t'expliquer à quoi sert ce fichie
 
 ### ⭐ Socle
 
-- [ ] Une **interface** `AiClient` avec une méthode `String ask(String question)`
-- [ ] Une classe `MockAiClient` qui répond un texte factice : le programme fonctionne **sans clé ni réseau**
-- [ ] Une classe `HttpAiClient` qui appelle la vraie API avec `java.net.http.HttpClient`
-- [ ] Au démarrage : si `AI_API_KEY` existe, on utilise `HttpAiClient`, sinon `MockAiClient` avec un message explicite
-- [ ] Le texte de la réponse est extrait du JSON avec Gson
-- [ ] Une boucle de conversation en console, avec la commande `/quit`
-- [ ] Les erreurs (pas de réseau, clé invalide, statut HTTP différent de 200) affichent un message lisible sans planter
-- [ ] **Aucune clé API** dans le code
+- [x] Une **interface** `AiClient` avec une méthode `String ask(String question)`
+- [x] Une classe `MockAiClient` qui répond un texte factice : le programme fonctionne **sans clé ni réseau**
+- [x] Une classe `HttpAiClient` qui appelle la vraie API avec `java.net.http.HttpClient`
+- [x] Au démarrage : si `AI_API_KEY` existe, on utilise `HttpAiClient`, sinon `MockAiClient` avec un message explicite
+- [x] Le texte de la réponse est extrait du JSON avec Gson
+- [x] Une boucle de conversation en console, avec la commande `/quit`
+- [x] Les erreurs (pas de réseau, clé invalide, statut HTTP différent de 200) affichent un message lisible sans planter
+- [x] **Aucune clé API** dans le code
 
 ### 🚀 Extensions
 
-- [ ] Commandes `/reset` (efface l'historique) et `/save` (écrit la conversation dans un fichier)
-- [ ] Un **message système** (persona) défini en constante, par exemple : *tuteur Java qui explique sans donner la solution complète*
-- [ ] L'historique est renvoyé à chaque requête pour que l'IA se souvienne du contexte
-- [ ] Nouvel essai automatique si l'API répond 429 (trop de requêtes)
+- [x] Commandes `/reset` (efface l'historique) et `/save` (écrit la conversation dans un fichier)
+- [x] Un **message système** (persona) défini en constante, par exemple : *tuteur Java qui explique sans donner la solution complète*
+- [x] L'historique est renvoyé à chaque requête pour que l'IA se souvienne du contexte
+- [x] Nouvel essai automatique si l'API répond 429 (trop de requêtes)
 
 ### 🤖 Avec l'IA
 
 - [ ] Colle la **documentation de l'API** dans ton assistant et demande-lui d'expliquer la requête et la réponse JSON **avant** de coder
-- [ ] Demande-lui d'expliquer ce qu'est une interface et pourquoi `MockAiClient` est utile
-- [ ] **Teach-back** : explique-lui avec tes mots le trajet complet d'une question (console → `AiClient` → requête HTTP → JSON → affichage) et demande-lui de corriger tes erreurs
-- [ ] Demande-lui 3 questions pièges sur ton code et réponds-y sans regarder
+- [x] Demande-lui d'expliquer ce qu'est une interface et pourquoi `MockAiClient` est utile
+- [x] **Teach-back** : explique-lui avec tes mots le trajet complet d'une question (console → `AiClient` → requête HTTP → JSON → affichage) et demande-lui de corriger tes erreurs
+- [x] Demande-lui 3 questions pièges sur ton code et réponds-y sans regarder
 
 ### 🔍 Points de contrôle : tu dois savoir répondre
 
 - Pourquoi mettre la clé dans une variable d'environnement plutôt que dans le code ?
+  - **Réponse :** le code est poussé sur GitHub : une clé écrite dedans serait visible par tout le monde (et des robots scannent GitHub pour les voler). Avec `System.getenv("AI_API_KEY")`, la clé reste sur ma machine, chacun utilise la sienne, et on peut la changer sans toucher au code.
 - À quoi sert `MockAiClient` et dans quel cas est-il utilisé ?
+  - **Réponse :** c'est un faux client qui implémente la même interface `AiClient` mais répond des textes prévus à l'avance, sans réseau ni clé. Il est utilisé au démarrage quand `AI_API_KEY` est absente (`choisirClient()` dans `ChatBot`). Il permet de développer et tester la boucle, les commandes et l'affichage sans consommer de requêtes.
 - Que signifie un statut HTTP 429 ? Et 401 ?
+  - **Réponse :** 429 = *Too Many Requests* : trop de requêtes en peu de temps, il faut ralentir (`HttpAiClient` attend 2 puis 4 secondes et réessaie, 3 essais au maximum). 401 = *Unauthorized* : la clé est absente, fausse ou révoquée ; le programme affiche « Clé API refusée (401) ».
 - Où et comment extrais-tu le texte de la réponse JSON ?
+  - **Réponse :** dans `extraireTexte()` de `HttpAiClient`, avec Gson : `JsonParser.parseString(...)` transforme le texte en objet, puis on descend `choices` → élément `0` → `message` → `content`. Si le JSON n'a pas cette forme, on lance une `AiException` « Réponse de l'API illisible » au lieu de planter.
 
 ### ✋ Défi sans IA (10 min)
 
@@ -257,11 +261,11 @@ Ajoute **à la main** une commande `/help` qui liste les commandes disponibles, 
 
 # 📦 Rendu
 
-- [ ] Tout est poussé sur ton dépôt GitHub `java-ia-NOM-Prenom` (dossiers `projet1`, `projet2`, `projet3`)
-- [ ] Aucune clé API dans ton dépôt (cherche `key` et `sk-` dans tes fichiers)
-- [ ] Les cases de ce README correspondant à ton travail sont cochées (`[x]`)
-- [ ] `NOTES.md` complété : pour chaque projet, 3 lignes sur *ce que j'ai compris*, *ce que l'IA a mal fait ou inventé*, *ce que je n'ai pas encore compris*
-- [ ] Lien du dépôt envoyé à moi par message privé sur Discord avant ce soir.
+- [x] Tout est poussé sur ton dépôt GitHub `java-ia-NOM-Prenom` (dossiers `projet1`, `projet2`, `projet3`)
+- [x] Aucune clé API dans ton dépôt (cherche `key` et `sk-` dans tes fichiers)
+- [x] Les cases de ce README correspondant à ton travail sont cochées (`[x]`)
+- [x] `NOTES.md` complété : pour chaque projet, 3 lignes sur *ce que j'ai compris*, *ce que l'IA a mal fait ou inventé*, *ce que je n'ai pas encore compris*
+- [x] Lien du dépôt envoyé à moi par message privé sur Discord avant ce soir.
 
 ### Test final
 
