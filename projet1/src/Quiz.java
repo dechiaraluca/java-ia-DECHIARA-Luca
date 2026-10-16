@@ -9,16 +9,7 @@ public class Quiz {
         // questions de ce thème dans un ordre aléatoire, redemande si je ne tape rien,
         // puis affiche mon score, un message selon le résultat et le temps total.
         // À la fin, il propose de rejouer.
-        Question[] questions = {
-                new Question("Quel mot-clé permet de créer un objet en Java ?", "new", "java"),
-                new Question("Que veut dire IA ?", "intelligence artificielle", "ia"),
-                new Question("Quelle méthode est le point de départ d'un programme Java ?", "main", "java"),
-                new Question("Quelle entreprise a créé ChatGPT ?", "OpenAI", "ia"),
-                new Question("Quel type Java sert à stocker du texte ?", "String", "java"),
-                new Question("Quel type Java sert à stocker des nombres entiers ?", "int", "java"),
-                new Question("Que veut dire LLM (en anglais) ?", "large language model", "ia"),
-                new Question("Comment s'appelle l'IA conversationnelle de Google ?", "Gemini", "ia")
-        };
+        Question[] questions = creerQuestions();
 
         Scanner scanner = new Scanner(System.in);
         String rejouer;
@@ -33,6 +24,46 @@ public class Quiz {
 
         System.out.println("À bientôt !");
         scanner.close();
+    }
+
+    // Les méthodes "public static" ci-dessous sont partagées avec QuizFenetre (version graphique)
+
+    public static Question[] creerQuestions() {
+        Question[] questions = {
+                new Question("Quel mot-clé permet de créer un objet en Java ?", "new", "java"),
+                new Question("Que veut dire IA ?", "intelligence artificielle", "ia"),
+                new Question("Quelle méthode est le point de départ d'un programme Java ?", "main", "java"),
+                new Question("Quelle entreprise a créé ChatGPT ?", "OpenAI", "ia"),
+                new Question("Quel type Java sert à stocker du texte ?", "String", "java"),
+                new Question("Quel type Java sert à stocker des nombres entiers ?", "int", "java"),
+                new Question("Que veut dire LLM (en anglais) ?", "large language model", "ia"),
+                new Question("Comment s'appelle l'IA conversationnelle de Google ?", "Gemini", "ia")
+        };
+        return questions;
+    }
+
+    // On garde seulement les questions du thème choisi, puis on les mélange
+    public static ArrayList<Question> selectionner(Question[] questions, String theme) {
+        ArrayList<Question> selection = new ArrayList<>();
+        for (int i = 0; i < questions.length; i++) {
+            if (theme.equals("tout") || questions[i].getTheme().equals(theme)) {
+                selection.add(questions[i]);
+            }
+        }
+        Collections.shuffle(selection);
+        return selection;
+    }
+
+    public static String messageScore(int score, int total) {
+        if (score == total) {
+            return "Parfait, tu maîtrises le sujet !";
+        } else if (score >= total / 2.0) {
+            return "Pas mal, encore un petit effort.";
+        } else if (score > 0) {
+            return "Il faut réviser, mais ne lâche rien !";
+        } else {
+            return "Ouch, il va falloir réviser sérieusement !";
+        }
     }
 
     private static String choisirTheme(Scanner scanner) {
@@ -54,14 +85,7 @@ public class Quiz {
     }
 
     private static void jouerPartie(Question[] questions, String theme, Scanner scanner) {
-        // On garde seulement les questions du thème choisi, puis on les mélange
-        ArrayList<Question> selection = new ArrayList<>();
-        for (int i = 0; i < questions.length; i++) {
-            if (theme.equals("tout") || questions[i].getTheme().equals(theme)) {
-                selection.add(questions[i]);
-            }
-        }
-        Collections.shuffle(selection);
+        ArrayList<Question> selection = selectionner(questions, theme);
 
         int score = 0;
         long debut = System.currentTimeMillis();
@@ -94,17 +118,7 @@ public class Quiz {
 
         System.out.println();
         System.out.println("Score final : " + score + " / " + total);
-
-        if (score == total) {
-            System.out.println("Parfait, tu maîtrises le sujet !");
-        } else if (score >= total / 2.0) {
-            System.out.println("Pas mal, encore un petit effort.");
-        } else if (score > 0) {
-            System.out.println("Il faut réviser, mais ne lâche rien !");
-        } else {
-            System.out.println("Ouch, il va falloir réviser sérieusement !");
-        }
-
+        System.out.println(messageScore(score, total));
         System.out.println("Temps total : " + secondes + " secondes");
     }
 }
